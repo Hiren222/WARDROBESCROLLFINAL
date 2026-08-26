@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import heroVideoUrl from '../assets/HerobgwadrobeFINAL.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -158,15 +159,16 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
           ref={videoRef}
+          src={heroVideoUrl || "/assets/HerobgwadrobeFINAL.mp4"}
           playsInline
           muted
           autoPlay={false}
           preload="auto"
           className="video-background w-full h-full object-cover object-center"
         >
+          <source src={heroVideoUrl} type="video/mp4" />
+          <source src="/assets/HerobgwadrobeFINAL.mp4" type="video/mp4" />
           <source src="/HerobgwadrobeFINAL.mp4" type="video/mp4" />
-          <source src="./HerobgwadrobeFINAL.mp4" type="video/mp4" />
-          <source src="HerobgwadrobeFINAL.mp4" type="video/mp4" />
         </video>
       </div>
 
