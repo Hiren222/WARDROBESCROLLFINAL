@@ -12,21 +12,39 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, onNavigate }) => 
 
   useEffect(() => {
     const handleScroll = () => {
-      const heroElement = document.getElementById('hero');
-      if (heroElement) {
-        const rect = heroElement.getBoundingClientRect();
-        // While pinned, rect.bottom is window.innerHeight. When hero unpins and scrolls away, switch to solid header
-        const isPastHero = rect.bottom <= 80;
-        setIsScrolled(isPastHero);
-      } else {
-        setIsScrolled(window.scrollY > 80);
+      // Check the content section that immediately follows the pinned hero video
+      const contentFlow = document.getElementById('content-flow') || document.getElementById('work');
+      if (contentFlow) {
+        const rect = contentFlow.getBoundingClientRect();
+        // The header is 70-80px tall. When the content arrives at or above the header, switch to solid background
+        setIsScrolled(rect.top <= 80);
+        return;
       }
+
+      // Check pin spacer if created by GSAP ScrollTrigger
+      const pinSpacer = document.querySelector('.pin-spacer');
+      if (pinSpacer) {
+        const rect = pinSpacer.getBoundingClientRect();
+        setIsScrolled(rect.bottom <= 80);
+        return;
+      }
+
+      // Fallback: estimate based on scroll distance (hero pins for ~2.5x viewport height)
+      const threshold = window.innerHeight * 2.2;
+      setIsScrolled(window.scrollY >= threshold);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleScroll, { passive: true });
     handleScroll();
+
+    // Re-check after GSAP layout calculations
+    const t1 = setTimeout(handleScroll, 100);
+    const t2 = setTimeout(handleScroll, 500);
+
     return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleScroll);
     };

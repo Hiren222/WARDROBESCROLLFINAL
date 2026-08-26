@@ -68,7 +68,13 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
-        className="relative w-full aspect-[16/10] sm:aspect-[16/9] rounded-xl overflow-hidden cursor-ew-resize select-none bg-[#2A2420] touch-none"
+        className="relative w-full rounded-xl overflow-hidden cursor-ew-resize select-none bg-[#2A2420] touch-none"
+        style={{
+          width: '100%',
+          aspectRatio: '16 / 9',
+          minHeight: '300px',
+          position: 'relative'
+        }}
         role="region"
         aria-label={`Before and after comparison for ${item.title}`}
       >
@@ -77,6 +83,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
           src={item.afterImage}
           alt={item.afterAlt}
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           loading="eager"
           decoding="async"
         />
@@ -92,6 +99,8 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
         <div
           className="absolute inset-0 pointer-events-none overflow-hidden"
           style={{ 
+            width: '100%',
+            height: '100%',
             clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
             WebkitClipPath: `inset(0 ${100 - sliderPos}% 0 0)` 
           }}
@@ -100,6 +109,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
             src={item.beforeImage}
             alt={item.beforeAlt}
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             loading="eager"
             decoding="async"
           />

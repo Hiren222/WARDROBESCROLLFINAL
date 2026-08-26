@@ -77,7 +77,7 @@ export default function App() {
         />
 
         {/* Content sections layered with z-index 1 & solid background scrolling on top of hero */}
-        <div className="relative z-[1] bg-[#FAF6F0] shadow-2xl">
+        <div id="content-flow" className="relative z-[1] bg-[#FAF6F0] shadow-2xl">
           {/* 2. Milestone Strip */}
           <MilestoneStrip />
 

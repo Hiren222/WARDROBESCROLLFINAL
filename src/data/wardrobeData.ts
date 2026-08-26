@@ -1,14 +1,14 @@
 import { WardrobeProject, TransformationItem, Testimonial, Milestone, WhyUsFeature } from '../types';
 
-import imgAfterOne from '../assets/afrerone.jpeg';
-import imgAfterTwo from '../assets/aftertwo.jpeg';
-import imgAfterThree from '../assets/aftertree.jpeg';
-import imgAfterFour from '../assets/afterfour.jpeg';
+import imgAfterOne from '../assets/after-1.jpeg';
+import imgAfterTwo from '../assets/after-2.jpeg';
+import imgAfterThree from '../assets/after-3.jpeg';
+import imgAfterFour from '../assets/after-4.jpeg';
 
-import imgBeforeOne from '../assets/beforeone.jpeg';
-import imgBeforeTwo from '../assets/beforetwo.jpeg';
-import imgBeforeThree from '../assets/beforetree.jpeg';
-import imgBeforeFour from '../assets/beforefour.jpeg';
+import imgBeforeOne from '../assets/before-1.jpeg';
+import imgBeforeTwo from '../assets/before-2.jpeg';
+import imgBeforeThree from '../assets/before-3.jpeg';
+import imgBeforeFour from '../assets/before-4.jpeg';
 
 export const HERO_IMAGE = "https://images.unsplash.com/photo-1558997519-83ea9252def8?auto=format&fit=crop&w=2200&q=85";
 export const EDITORIAL_DETAIL_IMAGE = "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=80";
@@ -42,11 +42,11 @@ export const PROJECTS: WardrobeProject[] = [
     title: "The Oak and Brass Suite",
     category: "Walk-In",
     categoryLabel: "WALK-IN",
-    image: imgAfterOne || "/assets/afrerone.jpeg",
+    image: imgAfterOne,
     galleryImages: [
-      imgAfterOne || "/assets/afrerone.jpeg",
-      imgAfterTwo || "/assets/aftertwo.jpeg",
-      imgAfterThree || "/assets/aftertree.jpeg"
+      imgAfterOne,
+      imgAfterTwo,
+      imgAfterThree
     ],
     description: "A bespoke walk-in wardrobe in natural blonde oak with brass frame detailing, illuminated display bays, and luxury accessory trays.",
     details: {
@@ -67,11 +67,11 @@ export const PROJECTS: WardrobeProject[] = [
     title: "The Velvet Room",
     category: "Dressing Room",
     categoryLabel: "DRESSING ROOM",
-    image: imgAfterFour || "/assets/afterfour.jpeg",
+    image: imgAfterFour,
     galleryImages: [
-      imgAfterFour || "/assets/afterfour.jpeg",
-      imgAfterOne || "/assets/afrerone.jpeg",
-      imgAfterTwo || "/assets/aftertwo.jpeg"
+      imgAfterFour,
+      imgAfterOne,
+      imgAfterTwo
     ],
     description: "A bespoke dressing room with velvet-lined drawers, warm ambient backlighting, and customized full-height cabinetry.",
     details: {
@@ -92,11 +92,11 @@ export const PROJECTS: WardrobeProject[] = [
     title: "The Clean Line",
     category: "Contemporary",
     categoryLabel: "CONTEMPORARY",
-    image: imgAfterTwo || "/assets/aftertwo.jpeg",
+    image: imgAfterTwo,
     galleryImages: [
-      imgAfterTwo || "/assets/aftertwo.jpeg",
-      imgAfterThree || "/assets/aftertree.jpeg",
-      imgAfterFour || "/assets/afterfour.jpeg"
+      imgAfterTwo,
+      imgAfterThree,
+      imgAfterFour
     ],
     description: "A sleek handleless fitted wardrobe with seamless floor-to-ceiling flush fit and integrated linear LED profiles.",
     details: {
@@ -117,11 +117,11 @@ export const PROJECTS: WardrobeProject[] = [
     title: "The Manor Dressing Room",
     category: "Classic",
     categoryLabel: "CLASSIC",
-    image: imgAfterThree || "/assets/aftertree.jpeg",
+    image: imgAfterThree,
     galleryImages: [
-      imgAfterThree || "/assets/aftertree.jpeg",
-      imgAfterOne || "/assets/afrerone.jpeg",
-      imgAfterFour || "/assets/afterfour.jpeg"
+      imgAfterThree,
+      imgAfterOne,
+      imgAfterFour
     ],
     description: "A grand dressing room with hand-crafted bespoke cabinetry, antique brass fittings, and integrated warm lighting.",
     details: {
@@ -145,8 +145,8 @@ export const TRANSFORMATIONS: TransformationItem[] = [
     title: "The Oak and Brass Suite",
     subtitle: "Walk-In Transformation",
     description: "A complete reinvention — from an empty room to a bespoke luxury walk-in wardrobe suite crafted in natural blonde oak and brass.",
-    beforeImage: imgBeforeOne || "/assets/beforeone.jpeg",
-    afterImage: imgAfterOne || "/assets/afrerone.jpeg",
+    beforeImage: imgBeforeOne,
+    afterImage: imgAfterOne,
     beforeAlt: "Room space before bespoke wardrobe installation",
     afterAlt: "Stunning bespoke walk-in wardrobe with luxury finish and lighting",
     highlights: ["+240% usable wardrobe storage", "Custom central island unit", "Integrated 2700K warm LED lighting"]
@@ -156,19 +156,30 @@ export const TRANSFORMATIONS: TransformationItem[] = [
     title: "The Velvet Room",
     subtitle: "Dressing Room Transformation",
     description: "An unorganized room space converted into a luxury dressing room with custom bespoke cabinetry and velvet finishes.",
-    beforeImage: imgBeforeFour || "/assets/beforefour.jpeg",
-    afterImage: imgAfterFour || "/assets/afterfour.jpeg",
+    beforeImage: imgBeforeFour,
+    afterImage: imgAfterFour,
     beforeAlt: "Room space before custom dressing room conversion",
     afterAlt: "Bespoke dressing room with custom shelving, velvet lining, and integrated illumination",
     highlights: ["Velvet jewelry organization drawers", "Full-height illuminated mirror", "Hand-turned brass hardware"]
   },
   {
     id: "suite-transformation-3",
+    title: "The Clean Line",
+    subtitle: "Contemporary Fitted Transformation",
+    description: "An underutilized alcove transformed into a seamless floor-to-ceiling handleless fitted wardrobe system with integrated linear illumination.",
+    beforeImage: imgBeforeTwo,
+    afterImage: imgAfterTwo,
+    beforeAlt: "Room space before contemporary fitted wardrobe installation",
+    afterAlt: "Sleek handleless fitted wardrobe with flush aesthetic and interior lighting",
+    highlights: ["Flush floor-to-ceiling fit", "Push-to-open mechanism", "Integrated vertical LED lighting"]
+  },
+  {
+    id: "suite-transformation-4",
     title: "The Manor Dressing Room",
     subtitle: "Heritage Classic Transformation",
     description: "A bare master chamber transformed into a grand classic dressing room with hand-crafted cabinetry and warm lighting.",
-    beforeImage: imgBeforeThree || "/assets/beforetree.jpeg",
-    afterImage: imgAfterThree || "/assets/aftertree.jpeg",
+    beforeImage: imgBeforeThree,
+    afterImage: imgAfterThree,
     beforeAlt: "Room space before transformation",
     afterAlt: "Grand classic dressing room with bespoke cabinetry and integrated lighting",
     highlights: ["Bespoke hand-painted cabinetry", "Herringbone oak flooring integration", "Concealed accessory safes"]

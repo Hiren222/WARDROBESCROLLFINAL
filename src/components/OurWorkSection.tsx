@@ -122,11 +122,15 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({ onSelectProjectF
               }}
             >
               {/* Image Container with Smooth Hover Zoom */}
-              <div className="relative w-full md:w-3/5 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] overflow-hidden bg-[#2A2420] shrink-0">
+              <div 
+                className="relative w-full md:w-3/5 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] overflow-hidden bg-[#2A2420] shrink-0"
+                style={{ minHeight: '280px', position: 'relative' }}
+              >
                 <img
                   src={project.image}
                   alt={`${project.title} - ${project.category} wardrobe interior design`}
                   className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   loading="lazy"
                   decoding="async"
                 />

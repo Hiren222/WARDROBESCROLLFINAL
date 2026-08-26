@@ -147,11 +147,15 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
             </div>
 
             {/* Editorial Wardrobe Detail Photo: Solid Wood, Brass Hardware, Soft Close */}
-            <div className="rounded-xl overflow-hidden border border-[#D4B896] shadow-md bg-[#2A2420] relative group">
+            <div 
+              className="rounded-xl overflow-hidden border border-[#D4B896] shadow-md bg-[#2A2420] relative group"
+              style={{ minHeight: '260px', position: 'relative' }}
+            >
               <img
                 src={EDITORIAL_DETAIL_IMAGE}
                 alt="Close-up of bespoke brass drawer handles, soft-close mechanisms, and warm oak wardrobe grain texture"
                 className="w-full h-64 sm:h-72 object-cover object-center group-hover:scale-103 transition-transform duration-700"
+                style={{ width: '100%', height: '100%', minHeight: '260px', objectFit: 'cover' }}
                 decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2A2420]/80 via-transparent to-transparent flex items-end p-5">

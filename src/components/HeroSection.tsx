@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import heroVideoUrl from '../assets/HerobgwadrobeFINAL.mp4';
+import heroVideoUrl from '../assets/hero-wardrobe.mp4';
+import posterImg from '../assets/after-1.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,33 +29,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     video.defaultMuted = true;
     video.playsInline = true;
 
-    // Prime the video decoder so the first frame is painted immediately
-    const primeVideoFrame = () => {
-      if (video.currentTime === 0) {
-        video.currentTime = 0.001;
-      }
-      video.play().then(() => {
-        video.pause();
-        if (video.currentTime === 0) {
-          video.currentTime = 0.001;
-        }
-      }).catch(() => {
-        if (video.currentTime === 0) {
-          video.currentTime = 0.001;
-        }
-      });
-    };
-
-    // iOS Touch activation
-    const handleTouch = () => {
-      if (video) {
-        video.play().then(() => {
-          video.pause();
-        }).catch(() => {});
-      }
-    };
-    document.documentElement.addEventListener('touchstart', handleTouch, { once: true });
-
     // GSAP ScrollTrigger timeline for video scrubbing
     let tl: gsap.core.Timeline | null = null;
 
@@ -62,7 +36,6 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       if (tl) tl.kill();
 
       const duration = video.duration && !isNaN(video.duration) && video.duration > 0 ? video.duration : 4;
-      primeVideoFrame();
 
       tl = gsap.timeline({
         scrollTrigger: {
@@ -71,13 +44,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
           end: '+=250%',
           pin: true,
           pinSpacing: true,
-          scrub: true,
+          scrub: 0.5,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
 
-      // Video scrub runs from timeline progress 0.0 to 1.0 (100% duration across full scroll)
+      // Video scrub runs from timeline progress 0.0 to 1.0
       tl.fromTo(
         video,
         { currentTime: 0.001 },
@@ -126,17 +99,11 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       video.addEventListener('durationchange', setupTimeline, { once: true });
     }
 
-    video.addEventListener('loadeddata', primeVideoFrame, { once: true });
     video.addEventListener('canplaythrough', setupTimeline, { once: true });
 
-    // Initial load call
-    video.load();
-
     return () => {
-      document.documentElement.removeEventListener('touchstart', handleTouch);
       video.removeEventListener('loadedmetadata', setupTimeline);
       video.removeEventListener('canplay', setupTimeline);
-      video.removeEventListener('loadeddata', primeVideoFrame);
       video.removeEventListener('canplaythrough', setupTimeline);
       video.removeEventListener('durationchange', setupTimeline);
       if (tl) tl.kill();
@@ -153,22 +120,23 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       id="hero"
       ref={heroRef}
       aria-label="Hero Introduction"
-      className="relative w-full h-screen flex items-center justify-start overflow-hidden bg-[#2A2420] z-0"
+      className="relative w-full h-screen min-h-[500px] flex items-center justify-start overflow-hidden bg-[#2A2420] z-0"
+      style={{ minHeight: '100vh', width: '100%' }}
     >
-      {/* Background Video with Source fallbacks */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+      {/* Background Video with Poster Fallback & Multi-Source */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none w-full h-full">
         <video
           ref={videoRef}
-          src={heroVideoUrl || "/assets/HerobgwadrobeFINAL.mp4"}
+          src={heroVideoUrl}
+          poster={posterImg}
           playsInline
           muted
           autoPlay={false}
           preload="auto"
           className="video-background w-full h-full object-cover object-center"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         >
           <source src={heroVideoUrl} type="video/mp4" />
-          <source src="/assets/HerobgwadrobeFINAL.mp4" type="video/mp4" />
-          <source src="/HerobgwadrobeFINAL.mp4" type="video/mp4" />
         </video>
       </div>
 

@@ -30,11 +30,15 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
         </button>
 
         {/* Modal Header & Hero Image */}
-        <div className="relative h-72 sm:h-96 w-full bg-[#2A2420] overflow-hidden">
+        <div 
+          className="relative h-72 sm:h-96 w-full bg-[#2A2420] overflow-hidden"
+          style={{ width: '100%', minHeight: '280px', position: 'relative' }}
+        >
           <img
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover object-center"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2A2420] via-[#2A2420]/40 to-transparent" />
