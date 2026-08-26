@@ -22,6 +22,28 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
     const scrollIndicator = scrollIndicatorRef.current;
     if (!video || !hero) return;
 
+    // Ensure DOM properties are strictly applied for browser autoplay/decode policies
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+
+    // Prime the video decoder so the first frame is painted immediately
+    const primeVideoFrame = () => {
+      if (video.currentTime === 0) {
+        video.currentTime = 0.001;
+      }
+      video.play().then(() => {
+        video.pause();
+        if (video.currentTime === 0) {
+          video.currentTime = 0.001;
+        }
+      }).catch(() => {
+        if (video.currentTime === 0) {
+          video.currentTime = 0.001;
+        }
+      });
+    };
+
     // iOS Touch activation
     const handleTouch = () => {
       if (video) {
@@ -39,6 +61,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       if (tl) tl.kill();
 
       const duration = video.duration && !isNaN(video.duration) && video.duration > 0 ? video.duration : 4;
+      primeVideoFrame();
 
       tl = gsap.timeline({
         scrollTrigger: {
@@ -56,8 +79,8 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       // Video scrub runs from timeline progress 0.0 to 1.0 (100% duration across full scroll)
       tl.fromTo(
         video,
-        { currentTime: 0 },
-        { currentTime: duration, ease: 'none', duration: 1.0 },
+        { currentTime: 0.001 },
+        { currentTime: Math.max(0.1, duration - 0.05), ease: 'none', duration: 1.0 },
         0
       );
 
@@ -102,25 +125,18 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       video.addEventListener('durationchange', setupTimeline, { once: true });
     }
 
-    const src = '/HerobgwadrobeFINAL.mp4';
-    if (!video.src) {
-      video.src = src;
-    }
+    video.addEventListener('loadeddata', primeVideoFrame, { once: true });
+    video.addEventListener('canplaythrough', setupTimeline, { once: true });
+
+    // Initial load call
     video.load();
-
-    const onCanPlayThrough = () => {
-      setupTimeline();
-    };
-
-    video.addEventListener('canplaythrough', onCanPlayThrough, { once: true });
-    video.addEventListener('loadeddata', setupTimeline, { once: true });
 
     return () => {
       document.documentElement.removeEventListener('touchstart', handleTouch);
       video.removeEventListener('loadedmetadata', setupTimeline);
       video.removeEventListener('canplay', setupTimeline);
-      video.removeEventListener('loadeddata', setupTimeline);
-      video.removeEventListener('canplaythrough', onCanPlayThrough);
+      video.removeEventListener('loadeddata', primeVideoFrame);
+      video.removeEventListener('canplaythrough', setupTimeline);
       video.removeEventListener('durationchange', setupTimeline);
       if (tl) tl.kill();
       ScrollTrigger.getAll().forEach((trigger) => {
@@ -138,17 +154,20 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       aria-label="Hero Introduction"
       className="relative w-full h-screen flex items-center justify-start overflow-hidden bg-[#2A2420] z-0"
     >
-      {/* Background Video: HerobgwadrobeFINAL.mp4 */}
+      {/* Background Video with Source fallbacks */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
           ref={videoRef}
-          src="/HerobgwadrobeFINAL.mp4"
           playsInline
           muted
           autoPlay={false}
           preload="auto"
           className="video-background w-full h-full object-cover object-center"
-        />
+        >
+          <source src="/HerobgwadrobeFINAL.mp4" type="video/mp4" />
+          <source src="./HerobgwadrobeFINAL.mp4" type="video/mp4" />
+          <source src="HerobgwadrobeFINAL.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Hero Content Container (Centered layout matching screenshot) */}
@@ -156,7 +175,7 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
         ref={textContentRef}
         className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 lg:px-16 w-full pt-16 pb-20 flex flex-col justify-center items-center text-center will-change-[opacity,transform]"
       >
-        <div className="space-y-6 md:space-y-7 animate-in fade-in slide-in-from-bottom-6 duration-700">
+        <div className="space-y-6 md:space-y-7">
           
           {/* Screenshot-Style Eyebrow: BESPOKE WARDROBES · EST. 1987 */}
           <p className="text-[#E5A93C] text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">

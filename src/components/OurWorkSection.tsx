@@ -122,13 +122,13 @@ export const OurWorkSection: React.FC<OurWorkSectionProps> = ({ onSelectProjectF
               }}
             >
               {/* Image Container with Smooth Hover Zoom */}
-              <div className="relative md:w-3/5 aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden bg-[#2A2420]">
+              <div className="relative w-full md:w-3/5 min-h-[260px] sm:min-h-[320px] md:min-h-[380px] overflow-hidden bg-[#2A2420] shrink-0">
                 <img
                   src={project.image}
                   alt={`${project.title} - ${project.category} wardrobe interior design`}
-                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
-                  referrerPolicy="no-referrer"
+                  className="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
                   loading="lazy"
+                  decoding="async"
                 />
 
                 {/* Badge on top corner */}

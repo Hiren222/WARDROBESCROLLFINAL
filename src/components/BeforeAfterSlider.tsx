@@ -77,8 +77,8 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
           src={item.afterImage}
           alt={item.afterAlt}
           className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
-          referrerPolicy="no-referrer"
-          loading="lazy"
+          loading="eager"
+          decoding="async"
         />
 
         {/* AFTER Label Overlay on Right */}
@@ -88,17 +88,20 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({ item, defa
           </span>
         </div>
 
-        {/* BEFORE IMAGE (Clipped on Left via CSS clip-path) */}
+        {/* BEFORE IMAGE (Clipped on Left via CSS clip-path with Webkit prefix) */}
         <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
+          className="absolute inset-0 pointer-events-none overflow-hidden"
+          style={{ 
+            clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
+            WebkitClipPath: `inset(0 ${100 - sliderPos}% 0 0)` 
+          }}
         >
           <img
             src={item.beforeImage}
             alt={item.beforeAlt}
             className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
-            referrerPolicy="no-referrer"
-            loading="lazy"
+            loading="eager"
+            decoding="async"
           />
           {/* BEFORE Label Overlay on Left */}
           <div className="absolute top-4 left-4 z-10 pointer-events-none">

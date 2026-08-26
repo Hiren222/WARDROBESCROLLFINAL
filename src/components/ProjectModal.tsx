@@ -35,7 +35,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover object-center"
-            referrerPolicy="no-referrer"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#2A2420] via-[#2A2420]/40 to-transparent" />
           <div className="absolute bottom-6 left-6 right-6 text-white">
@@ -123,7 +123,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
                       src={imgUrl}
                       alt={`${project.title} detail angle ${idx + 1}`}
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      referrerPolicy="no-referrer"
+                      decoding="async"
                     />
                   </div>
                 ))}

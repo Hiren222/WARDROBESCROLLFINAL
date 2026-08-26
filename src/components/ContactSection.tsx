@@ -152,7 +152,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 src={EDITORIAL_DETAIL_IMAGE}
                 alt="Close-up of bespoke brass drawer handles, soft-close mechanisms, and warm oak wardrobe grain texture"
                 className="w-full h-64 sm:h-72 object-cover object-center group-hover:scale-103 transition-transform duration-700"
-                referrerPolicy="no-referrer"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2A2420]/80 via-transparent to-transparent flex items-end p-5">
                 <span className="text-white text-xs font-serif italic tracking-wide">
