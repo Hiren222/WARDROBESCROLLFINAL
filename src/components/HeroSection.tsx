@@ -102,33 +102,25 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       video.addEventListener('durationchange', setupTimeline, { once: true });
     }
 
-    // Smooth scrub optimization via blob caching
-    const timer = setTimeout(() => {
-      const src = video.currentSrc || video.src || '/HerobgwadrobeFINAL.mp4';
-      if (window.fetch && src && !src.startsWith('blob:')) {
-        fetch(src)
-          .then((response) => {
-            if (response.ok) return response.blob();
-            throw new Error('Video fetch failed');
-          })
-          .then((blob) => {
-            const blobURL = URL.createObjectURL(blob);
-            const currentTime = video.currentTime;
-            video.setAttribute('src', blobURL);
-            video.currentTime = currentTime + 0.01;
-            setupTimeline();
-          })
-          .catch(() => {
-            // Keep existing source as fallback
-          });
-      }
-    }, 400);
+    const src = '/HerobgwadrobeFINAL.mp4';
+    if (!video.src) {
+      video.src = src;
+    }
+    video.load();
+
+    const onCanPlayThrough = () => {
+      setupTimeline();
+    };
+
+    video.addEventListener('canplaythrough', onCanPlayThrough, { once: true });
+    video.addEventListener('loadeddata', setupTimeline, { once: true });
 
     return () => {
-      clearTimeout(timer);
       document.documentElement.removeEventListener('touchstart', handleTouch);
       video.removeEventListener('loadedmetadata', setupTimeline);
       video.removeEventListener('canplay', setupTimeline);
+      video.removeEventListener('loadeddata', setupTimeline);
+      video.removeEventListener('canplaythrough', onCanPlayThrough);
       video.removeEventListener('durationchange', setupTimeline);
       if (tl) tl.kill();
       ScrollTrigger.getAll().forEach((trigger) => {
@@ -150,16 +142,13 @@ export const HeroSection: React.FC<HeroSectionProps> = () => {
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <video
           ref={videoRef}
+          src="/HerobgwadrobeFINAL.mp4"
           playsInline
           muted
+          autoPlay={false}
           preload="auto"
           className="video-background w-full h-full object-cover object-center"
-        >
-          <source src="/HerobgwadrobeFINAL.mp4" type="video/mp4" />
-          <source src="HerobgwadrobeFINAL.mp4" type="video/mp4" />
-          <source src="./HerobgwadrobeFINAL.mp4" type="video/mp4" />
-        </video>
-        {/* Clean, undarkened video */}
+        />
       </div>
 
       {/* Hero Content Container (Centered layout matching screenshot) */}
