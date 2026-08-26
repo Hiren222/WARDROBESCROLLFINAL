@@ -1,0 +1,6 @@
+{
+  "name": "Wardrobe Interior Designer",
+  "description": "Bespoke wardrobe and dressing room interior design studio portfolio showcasing handcrafted walk-in wardrobes, dressing suites, and before-and-after transformations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-brass: #C4913A;
+    --color-brass-dark: #A97A2E;
+    --color-brass-light: #F2E4CB;
+    --color-cream: #FAF6F0;
+    --color-oak: #EDE0CE;
+    --color-oak-dark: #D4B896;
+    --color-charcoal: #2A2420;
+    --color-charcoal-light: #3D3530;
+    --color-taupe: #8A7A6A;
+    --color-emerald: #2D6A4F;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #FAF6F0;
+    color: #2A2420;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+}
+
+/* Custom smooth transitions and animations */
+.transition-luxury {
+  transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Nav underline sweep animation */
+.nav-link-underline {
+  position: relative;
+}
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background-color: #C4913A;
+  transition: width 0.35s ease;
+}
+.nav-link-underline:hover::after,
+.nav-link-underline.active::after {
+  width: 100%;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF6F0;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4B896;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C4913A;
+}
